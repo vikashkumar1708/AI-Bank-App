@@ -1,31 +1,36 @@
 name: dependency scan
-on:
+on: 
     workflow_call:
 jobs:
     owasp-scan:
-        runs-on: ubuntu-latest
-        steps:
-            - name: code checkout
-              uses: actions/checkout@v4
+      runs-on: ubuntu-latest
 
-            - name: setup java
-              uses: actions/setup-java@v4
-              with:
-                java-version: "17"
-                distribution: "temurin"
-                cache: "maven"
+      steps:
+       - name: Checkout Code
+         uses: actions/checkout@v4
 
-            - name: OWASP Dependency Check
-              uses: dependency-check/Dependency-Check_Action@main
-              with:
-                project: "ai-bankapp"
-                path: "."
-                format: "HTML"
-                args: >                     # vulnerability on high and critical
-                   --failOnCVSS 7         
+       - name: Setup Java
+         uses: actions/setup-java@v4
+         with:
+           distribution: temurin
+           java-version: '21'
 
-            - name: Upload Dependency Check Report
-              uses: actions/upload-artifact@v4
-              with:
-                name: dependency-check-report
-                path: reports
+       - name: Download Dependency Check
+         run: |
+          wget https://github.com/dependency-check/DependencyCheck/releases/download/v12.1.8/dependency-check-12.1.8-release.zip
+          unzip dependency-check-12.1.8-release.zip
+
+       - name: Run Dependency Check
+         run: |
+          ./dependency-check/bin/dependency-check.sh \
+          --project "AI-Bank-App" \
+          --scan . \
+          --format HTML \
+          --out reports \
+          --failOnCVSS 7
+
+       - name: Upload Report
+         uses: actions/upload-artifact@v4
+         with:
+          name: dependency-check-report
+          path: reports
