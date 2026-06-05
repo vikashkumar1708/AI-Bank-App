@@ -1,0 +1,4 @@
+name: image build and push
+on:
+    workflow_dispatch:
+
