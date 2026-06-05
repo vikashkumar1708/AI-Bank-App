@@ -21,8 +21,8 @@ jobs:
                 project: "ai-bankapp"
                 path: "."
                 format: "HTML"
-                args: >
-                   --failOnCVSS 7          # vulnerability on high and critical
+                args: >                     # vulnerability on high and critical
+                   --failOnCVSS 7         
 
             - name: Upload Dependency Check Report
               uses: actions/upload-artifact@v4
