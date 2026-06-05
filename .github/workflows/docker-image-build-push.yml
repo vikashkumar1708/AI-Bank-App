@@ -1,4 +1,30 @@
 name: image build and push
 on:
     workflow_dispatch:
+jobs:
+    image-build-push:
+        runs-on: ubuntu-latest
+        steps:
+            - name: code checkout
+              uses: actions/checkout@v4
+
+            - name: docker login
+              uses: docker/login-action@v4
+              with:
+                username: ${{ secrets.DOCKERHUB_USER }}
+                password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+            - name: docker build and push
+              uses: docker/build-push-action@v7
+              with:
+                push: true             #image build hote hi push krr dega
+                context: .             #docker ko batayega ki file isi directory me rkhi hai
+                tags: |
+                   ${{ secrets.DOCKERHUB_USER }}/ai-bank-app:latest
+                   ${{ secrets.DOCKERHUB_USER }}/ai-bank-app:${{ github.sha }}
+                   ${{ secrets.DOCKERHUB_USER }}/ai-bank-app:${{ github.ref_name }}
+
+                  
+
+            
 
