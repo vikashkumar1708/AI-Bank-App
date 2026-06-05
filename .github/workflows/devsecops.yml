@@ -1,0 +1,16 @@
+name: end to end pipeline
+on:
+   push:
+    branches: [main]
+jobs:
+    code-quality:
+        uses: ./.github/workflows/code-quality.yml
+
+    dependency-scan:
+        uses: ./.github/workflows/dependency-scan.yml
+
+    lint:
+        uses: ./.github/workflows/lint.yml
+
+    secrets-scan:
+        uses: ./.github/workflows/secrets-scan.yml

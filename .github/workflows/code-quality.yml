@@ -1,0 +1,17 @@
+name: semgrep code quality
+on:
+    workflow_call:
+jobs:
+    semgrep:
+        runs-on: ubuntu-latest
+        steps:
+         - name: Checkout Code
+           uses: actions/checkout@v4
+
+         - name: Run Semgrep SAST Scan
+           uses: semgrep/semgrep-action@v1
+           with:
+            config: >-
+              p/java
+              p/owasp-top-ten
+              p/secrets
