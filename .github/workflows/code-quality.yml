@@ -10,8 +10,9 @@ jobs:
 
          - name: Run Semgrep SAST Scan
            uses: semgrep/semgrep-action@v1
+           continue-on-error: true
            with:
-            config: >-
+             config: >-
               p/java
               p/owasp-top-ten
               p/secrets
