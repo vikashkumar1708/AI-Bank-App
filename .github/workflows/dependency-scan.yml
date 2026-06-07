@@ -23,12 +23,12 @@ jobs:
         echo "JAVA_HOME=$JAVA_HOME"
 
     - name: OWASP Dependency Check
-      uses: dependency-check/Dependency-Check_Action@v4
+      uses: dependency-check/DependencyCheck@main
       with:
-        project: "ai-bankapp"
-        path: "."
-        format: "HTML"
-        args: "--failOnCVSS 7"
+            project: "ai-bankapp"
+            path: "."
+            format: "HTML"
+            args: "--failOnCVSS 7"
 
     - name: Upload Dependency Check Report
       uses: actions/upload-artifact@v4
