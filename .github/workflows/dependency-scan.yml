@@ -16,6 +16,10 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
+    
+    - name: Clear JAVA_HOME
+      run: |
+       echo "JAVA_HOME=" >> $GITHUB_ENV
 
     - name: Verify Java
       run: |
