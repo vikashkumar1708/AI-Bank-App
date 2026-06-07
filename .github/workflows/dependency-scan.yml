@@ -16,7 +16,7 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
-     - name: Find Java path in container
+    - name: Find Java path in container
       run: |
         docker run --rm dependency-check/owasp-dependencycheck:latest which java
         docker run --rm dependency-check/owasp-dependencycheck:latest readlink -f $(which java)
